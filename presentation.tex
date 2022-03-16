@@ -1,0 +1,406 @@
+\documentclass{beamer}
+\usetheme[subsectionpage=progressbar]{metropolis}
+\usepackage[english]{babel}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\setcounter{tocdepth}{2}
+\apptocmd{\frame}{}{\justifying}{} % Allow optional arguments after frame.
+
+% Macro to give rounded borders to images.
+% https://subscription.packtpub.com/book/hardware-and-creative/9781784395148/4/ch04lvl1sec45
+% /cutting-an-image-to-get-rounded-corners
+\newsavebox{\picbox}
+\newcommand{\cutpic}[3]{
+  \savebox{\picbox}{\includegraphics[scale=#2]{#3}}
+  \tikz\node [draw, rounded corners=#1, line width=4pt,
+  color=white, minimum width=\wd\picbox,
+  minimum height=\ht\picbox, path picture={
+    \node at (path picture bounding box.center) {
+      \usebox{\picbox}};
+  }] {};
+}
+
+\title{ACM-ICPC Presentation}
+\author{Lionel \textsc{Kitihoun}}
+\date{}
+
+\begin{document}
+\begin{frame}[plain]
+    \maketitle
+\end{frame}
+
+\begin{frame}{Disclaimer}
+Part of the content comes from some slides found on the web. I do not know the authors, so here are the links to the slides.
+
+\begin{itemize}
+  \item \url{https://slideplayer.com/slide/1614833}.
+  \item \url{https://slideplayer.com/slide/1615102}.
+  \item \url{https://slideplayer.com/slide/8333198}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+  \tableofcontents
+\end{frame}
+
+\section{Presentation of the contest}
+
+\begin{frame}{ICPC}
+\begin{itemize}
+  \justifying
+  \item ACM International Collegiate Programming Contest is probably the greatest university-level programming contest in the world.
+  \item ACM - Association for Computing Machinery.
+  \begin{itemize}
+    \justifying
+    \item World's largest scientific and educational computing society.
+    \item Organizes research conferences.
+    \item Publishes journal.
+  \end{itemize}
+  \item The contest is organized since 1977.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ICPC logo}
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.8]{images/icpc-logo.png} \\
+  {\tiny\itshape Credit: Wikipedia}
+\end{figure}
+\end{frame}
+
+\begin{frame}{ACM logo}
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.15]{images/acm-logo.png} \\
+  {\tiny\itshape Credit: Wikipedia}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Purpose}
+\begin{itemize}
+  \justifying
+  \item Provide students the opportunity to sharpen problem solving skills.
+  \item It is not just about programming.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Format}
+Multi-tiered contest.
+\begin{itemize}
+  \justifying
+  \item Local contest, where each university selects its best teams.
+  \item Regional contest (semi-finals).
+  \item World finals.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Our region}
+\begin{itemize}
+  \justifying
+  \item Africa and Arab region.
+  \item The regional contest direction is in Egypt.
+  \item Regional site for West Africa is in Benin.
+  \item Contest direction in Benin, Togo, Niger, and Burkina-Faso is under by Mapcom Group responsability.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{World Finals}
+\begin{itemize}
+  \justifying
+  \item Each year, a university is given the honor to host the finals.
+  \item It is a great privilege.
+  \item Reaching the finals is already an accomplishment.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Rules}
+\begin{itemize}
+  \justifying
+  \item Each team consists of three (3) students from the same institute or university.
+  \item Each team has access to one computer during the contest.
+  \item The contest lasts five (5) hours and there are eight (8) or more problems to solve.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Restrictions and quotas}
+\begin{itemize}
+  \justifying
+  \item Each student should have less than five (5) years of university education before the contest.
+  \item Students who have previously competed in five (5) regional contests or two (2) world finals are not illegible.
+  \item A university can have several teams qualified to a regional contest, but there is at most one team per university at the world finals.
+  \item Read the rules at \url{https://icpc.global/regionals/rules}.
+  \item Allowed languages are C, C++, Java, and Python.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Contest process}
+\begin{itemize}
+  \justifying
+  \item There can be several sites for a regional contest, but there is only one for the world finals.
+  \item On each site, teams are gathered in a room.
+  \item There is a software that manages the contest.
+  \begin{itemize}
+    \justifying
+    \item It allows you to submit your solutions.
+    \item You get back the results of your submissions.
+    \item You can ask questions to the judges if you think something is unclear about a problem.
+  \end{itemize}
+  \item There is a scoreboard.
+  \item Each time a team solves a problem, it gets a balloon.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+\frametitle{A team with its balloons}
+\begin{figure}
+  \centering
+  \cutpic{0.3cm}{0.25}{images/team-fat-bandits.jpg} \\
+  {\tiny\itshape Credit: Facebook}
+\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+\frametitle{A contest room}
+\begin{figure}
+  \centering
+  \cutpic{0.3cm}{0.35}{images/itmo-2017.jpg} \\
+  {\tiny\itshape Credit: news.itmo.ru}
+\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+\frametitle{World Finals - Porto 2019}
+\begin{figure}
+  \centering
+  \cutpic{0.3cm}{0.35}{images/porto-2019-2.jpg} \\
+  {\tiny\itshape Credit: icpc2019.up.pt}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ranking}
+\begin{itemize}
+  \justifying
+  \item First, teams are ranked based on the number of solved problems.
+  \item When two ore more teams have the same number of solved problems, they are further ranked by time penalty.
+  \begin{itemize}
+    \justifying
+    \item For each solved problem, the number of minutes from the beginning of the contest until the correct solution was submitted.
+    \item For each solved problem, twenty (20) minutes for each incorrect submission before the correct solution.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Possible answers to submissions}
+\begin{itemize}
+  \justifying
+  \item \textcolor{green}{\textbf{Accepted}}.
+  \item \textcolor{red}{\textbf{Wrong Answer} (WA)}. Your program does not give the correct answer.
+  \item \textcolor{red}{\textbf{Time Limit Exceeded} (TLE)}. Your program takes too much time. That does not mean it gives the correct answer.
+  \item \textcolor{red}{\textbf{Memory Limit Exceeded}}. Your program uses too much memory. Same remark as above.
+  \item \textcolor{red}{\textbf{Runtime Error}}.
+  \item \textcolor{red}{\textbf{Compilation Error}}. No time penalty for this type of errors.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Strategy}
+Here are some tips.
+\begin{itemize}
+  \justifying
+  \item Good teamwork is essential.
+    \begin{itemize}
+      \item You must be complementary and know how to work together.
+      \item Each member should have one or several specialties.
+      \item Ideally, everyone should have a good programming level.
+      \item There is only one computer available, so it must shared.
+    \end{itemize}
+  \item Once you think you have a solution to a problem, don't rush to the computer. Write solution outline one a paper. It helps a lot.
+  \item Identify easy problems and solve them first.
+  \item Learn to relax and don't explode under pressure.
+  \item Enjoy the moment.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Problem categories}
+All areas of mathematics.
+\begin{itemize}
+  \justifying
+  \item Geometry.
+  \item Graph Theory.
+  \item String processing.
+  \item Calculus.
+  \item Optimization.
+  \item etc.
+\end{itemize}
+\end{frame}
+
+\section{Preparation}
+
+\subsection{Registration}
+
+\begin{frame}{Registration}
+In order to compete, students and coach should be registered on ICPC website.
+
+Once your account is created, you must complete your profile.
+\begin{itemize}
+  \justifying
+  \item Name, birthdate, sex, etc.
+  \item Academic information.
+    \begin{itemize}
+      \justifying
+      \item Your university or institute.
+      \item Post-secondary studies start date.
+      \item Branch.
+      \item Expected date of graduation.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Qualification}
+With your account, you can register for a contest.
+
+\begin{itemize}
+  \justifying
+  \item One of the team member or the coach creates the team and add members.
+  \item The contest organizers validate each team. 
+  \item If any of the team member did not complete its profile or does not fulfill the requirements, the team will be rejected.
+\end{itemize}
+\end{frame}
+
+\subsection{Training}
+
+\begin{frame}{An endless, beautiful journey}
+\begin{itemize}
+  \justifying
+  \item You can't be an ace right from the start.
+  \item You will need a lot of training to reach a decent level.
+  \item It never ends. There will be always something to learn.
+  \item It is not about winning the contest, it's all about improving and becoming a good problem solver.
+  \item I am not saying that it is not cool to win the contest.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The must important thing}
+You must have a strong will to learn and get better. It will fuel you through your journey.
+\vspace{12pt}
+\begin{tcolorbox}[boxrule=0mm]
+  \begin{quote}
+    Success Is Going from Failure to Failure Without Losing Your Enthusiam.
+    \begin{flushright}
+      \tiny{---William Chruchill}
+    \end{flushright}
+  \end{quote}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Basic prerequisites}
+  \begin{itemize}
+    \justifying
+    \item English.
+    \item You must know how to use a computer.
+    \item The computers used during the contest run under Linux, so it's better to get used to it.
+    \item You must know at least one of the languages of the contest.
+    \item You must know how to compile and run programs from the command-line.
+    \item You must also know how I/O redirection works.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{More prerequisites}
+\begin{itemize}
+  \justifying
+  \item DSA course.
+  \begin{itemize}
+    \justifying
+    \item You must know common data structures and algorithms.
+    \item You must be familiar with the notion of algorithm complexity.
+  \end{itemize}
+  \item Good level in C++, Java, or Python.
+  \begin{itemize}
+     \justifying
+    \item Object-oriented programming (optional, but useful).
+    \item You must know your preferred language strengths and weaknesses.
+    \item And its standard library.
+  \end{itemize}
+  \item Fast typewriting is an advantage. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Learning path}
+\begin{itemize}
+  \justifying
+  \item Follow a competitive programming course.
+  \begin{itemize}
+    \justifying
+    \item Usually, universities have a dedicated course and competitive programming club.
+    \item Some websites offer training material (cp-algorithms.com, Geeks for Geeks).
+  \end{itemize}
+  \item Read books and tutorial on recurrent topics. There is a lot of material available on the web.
+  \item Practice and learn on competitive programming websites.
+  \begin{itemize}
+    \justifying
+    \item Codeforces.
+    \item Kattis.
+    \item Hackerrank.
+  \end{itemize}
+  \item Participate in contests.
+  \begin{itemize}
+    \justifying
+    \item ACM Contests.
+    \item Google Codejam, Kickstart, Hashcode.
+    \item Facebook Hacker Cup.
+  \end{itemize}
+  \item Practice and learn, over and over again.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How will we work?}
+\begin{itemize}
+  \justifying
+  \item We will use Kattis (\url{https://open.kattis.com}).
+  \begin{itemize}
+    \justifying
+    \item Create an account if you don't have one.
+    \item Read the documentation for your language in the help section.
+  \end{itemize}
+  \item T-414-ÁFLV: A Competitive Programming Course, by Bjarki Ágúst Guðmundsson. Available at \url{https://algo.is}.
+  \item We have a WhatsApp group and a Slack workspace.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Course topics}
+  \begin{itemize}
+    \justifying
+    \item Data structures.
+    \item Problem solving paradigms.
+    \item Greedy algorithms.
+    \item Dynamic programming.
+    \item Graphs.
+    \item Mathematics.
+    \item Strings.
+    \item Geometry.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Problem set}
+For each chapter, there are five problems to solve and two bonus problems.
+\end{frame}
+
+\section{Questions}
+
+\begin{frame}[plain]
+\begin{center}
+  \cutpic{0.1}{0.3}{images/questions.jpg}
+\end{center}
+\end{frame}
+
+%\begin{frame}{}
+%  \begin{itemize}
+%    \justifying
+%    \item 
+%  \end{itemize}
+%\end{frame}
+\end{document}
