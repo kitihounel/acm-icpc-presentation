@@ -1,0 +1,249 @@
+\documentclass{beamer}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\setcounter{tocdepth}{2}
+\apptocmd{\frame}{}{\justifying}{} % Allow optional arguments after frame.
+
+% Macro to give rounded borders to images.
+% https://subscription.packtpub.com/book/hardware-and-creative/9781784395148/4/ch04lvl1sec45
+% /cutting-an-image-to-get-rounded-corners
+\newsavebox{\picbox}
+\newcommand{\cutpic}[3]{
+  \savebox{\picbox}{\includegraphics[scale=#2]{#3}}
+  \tikz\node [draw, rounded corners=#1, line width=4pt,
+  color=white, minimum width=\wd\picbox,
+  minimum height=\ht\picbox, path picture={
+    \node at (path picture bounding box.center) {
+      \usebox{\picbox}};
+  }] {};
+}
+
+\title{Algorithm Complexity}
+\author{Lionel \textsc{Kitihoun}}
+\date{}
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\begin{frame}{Introduction}
+\justifying
+We often need to evaluate a program cost, in terms of:
+\begin{itemize}
+  \item processor usage (number of operations needed to solve the problem),
+  \item memory usage (how much RAM will we need).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why?}
+\justifying
+\begin{itemize}
+  \item We often have limited resources.
+    \begin{itemize}
+      \item We have a lot of other things to do.
+      \item We need the result of our program as soon as possible.
+      \item Computation power and memory are costly.
+    \end{itemize}
+  \item We have several programs that can solve our problem.
+    \begin{itemize}
+      \item We need to pick the best one.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm complexity}
+\justifying
+Complexity of an algorithm is a measure of the amount of time or space required by an algorithm for an input of a given size (n)\footnote{\url{http://www.dcs.gla.ac.uk/~pat/52233/complexity.html}}.
+\end{frame}
+
+\begin{frame}{Your task}
+\justifying
+You should be able to deduce the complexity of a given algorithm in order to decide if it fits your need.
+\end{frame}
+
+\begin{frame}{Initiation examples}
+\justifying
+Three examples.
+\begin{itemize}
+  \item Sum of the first $N$ positive integers.
+  \item Primality test.
+  \item Fast exponentiation.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\justifying
+\frametitle{Sum of the first N positive integers (Naive)}
+\begin{verbatim}
+  function sum(n: int): int
+  var
+    s: integer
+    i: integer
+  begin
+    s := 0
+    for i := 1 to n
+        s = s + i
+    return s
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Sum of the first N positive integers (Naive)}
+\justifying
+So, how many operations are needed?
+\end{frame}
+
+\begin{frame}{Answer}
+\justifying
+This program needs $N + 1$ operations to get the answer.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sum of the first $N$ positive integers (Better)}
+\begin{verbatim}
+  function sum(n: int): int
+  var
+    s: integer
+  begin
+    s := n * (n + 1) / 2
+    return s
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Number of operations}
+\justifying
+This version only needs one instruction\footnote{Okay, three operations. But you get the idea.}.
+\end{frame}
+
+\begin{frame}{Make your choice}
+I prefer the second version.
+\begin{itemize}
+  \item It is faster, imagine if $N = 10^{10}$.
+  \item It makes me look smart.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Second example: primality test}
+\justifying
+Given a number, check if it is prime or not.
+\end{frame}
+
+\begin{frame}{Primality test: first take}
+Easy: just divide the number by all other integers below it.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Primality test pseudo-code}
+\begin{verbatim}
+  function is_prime(n: int): boolean
+    var
+      i: integer
+    begin
+      for i := 2 to n-1
+        if n mod i = 0
+          return false
+      return true
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Question}
+  \justifying
+  How many operations are needed?
+\end{frame}
+
+\begin{frame}{Answer}
+\justifying
+\begin{itemize}
+  \item We loop $N-2$ times.
+  \item In each loop we do one test.
+  \item $N-2$ operations overall.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Primality test: better version}
+\begin{verbatim}
+function is_prime(n: int): boolean
+var
+  i: integer
+begin
+  while i * i <= n
+    if n mod i = 0
+      return false
+  return true
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Cost}
+\justifying
+\begin{itemize}
+  \item We check every number up to $\sqrt{N}$.
+  \item So, we do at most $\sqrt{N}$ operations.
+  \item Better than the other version.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Last example: fast exponentiation}
+Given a real number $x$ and an integer $n$, compute $x^n$.
+\end{frame}
+
+\begin{frame}{Fast exponentiation insight}
+\justifying
+\begin{itemize}
+  \item No loop needed.
+  \item We just need one key observation.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fast exponentiation trick}
+\[
+  x^n= 
+  \begin{cases}
+    x^{n / 2} * x^{n / 2},\	if\ n\ is\ even,\\
+    x * x^{n / 2} * x^{n / 2},\ if\ n\ is\ odd
+  \end{cases}
+\]
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pseudo-code}
+\begin{verbatim}
+function exp(x: real, n: int): real
+var
+  h: integer
+  p: real
+begin
+  if n = 0
+    return 1
+  h = n / 2
+  p = exp(x, h)
+  if n mod 2 = 0
+    return h * h
+  else
+    return x * h * h
+end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Cost}
+\justifying
+\begin{itemize}
+  \item You need a bit of analysis.
+  \item The number of recursive call is roughly equal to $ln_{2}(n)$.
+  \item We will say that we need $ln(n)$ recursive calls.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Next}
+  This is just an introduction. Now, the real slides.
+\end{frame}
+\end{document}
